@@ -3,6 +3,7 @@ extends Node
 var players: Array = []
 enum Status {Started, Waiting}
 var status: int = Status.Waiting
+var room_name: String
 var now: int
 
 func join(player_id: int) -> bool:

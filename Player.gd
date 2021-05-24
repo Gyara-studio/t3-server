@@ -45,6 +45,24 @@ remote func move(po) -> bool:
 
 remote func game_end():
     get_node("/root/Rooms/" + str(room)).end()
+    room = null
+    # this player will do nothing in this room once it end the game
+    # and room will end right after all player choose to end
 
 remote func set_player_name(name: String):
     player_name = name
+
+remote func list_rooms() -> Array:
+    return $"/root".list_rooms()
+
+remote func join_room(room_id: int) -> bool:
+    return join(room_id)
+
+remote func create_room() -> int:
+    # will set this player's room
+    return $"/root".new_game_room(id)
+
+remote func leave_room() -> void:
+    get_node("/root/Rooms/" + str(room)).leave(id)
+    # reset
+    room = null

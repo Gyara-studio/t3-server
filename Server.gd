@@ -39,9 +39,18 @@ func on_client_disconnected(id: int) -> void:
 const Room = preload("res://Room.tscn")
 func new_game_room(create_player: int) -> int:
     var id: int = new_game_id()
+    var player_node = get_node("/room/Players/" + str(create_player))
     var room := Room.instance()
     room.set_name(str(id))
+    room.room_name = player_node.player_name
     room.join(create_player)
-    get_node("/room/Players/" + str(create_player)).join(id)
+    player_node.join(id)
     $Rooms.add_child(room)
     return id
+
+func list_rooms() -> Array:
+    var rooms = $Rooms.get_children()
+    var re = []
+    for room in rooms:
+        re.push_back([int(room.get_name()), room.room_name])
+    return []
